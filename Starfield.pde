@@ -8,6 +8,7 @@ void setup()
 		bob[i] = new Particle();
 	}
 	joe = new OddballParticle();
+	frameRate(60);
 }
 void draw()
 {
@@ -18,6 +19,18 @@ void draw()
 	}
 	joe.move();
 	joe.show();
+	/*if(frameCount%60 == 0){
+		for(int j = 0; j<bob.length; j++){
+			bob[j] = new Particle();
+			bob[j].move();
+			bob[j].show();
+		}
+	}*/
+}
+void mousePressed(){
+	for(int i = 0; i<bob.length; i++){
+		bob[i] = new Particle();
+	}
 }
 class Particle
 {
@@ -37,6 +50,14 @@ class Particle
 		stroke(255, 150);
 		fill(255,150);
 		ellipse((float)myX, (float)myY, 1,1);
+		if((myX<0||myX>400)||(myY<0||myY>400)){
+			myX=200;
+			myY=200;
+			mySpeed = Math.random()*.5;
+			myAngle = Math.random()*2*Math.PI;
+		}
+		myX += (mySpeed*Math.cos(myAngle));
+		myY += (mySpeed*Math.sin(myAngle));
 	}
 	double getmyX(){
 		return myX;
@@ -48,8 +69,8 @@ class Particle
 class OddballParticle extends Particle //inherits from Particle
 {
 	void move(){
-		myX = (int)(Math.random()*5)-3+myX;
-		myY = (int)(Math.random()*5)-3+myY;
+		myX = (int)(Math.random()*5)-2+myX;
+		myY = (int)(Math.random()*5)-2+myY;
 	}
 	void show(){
 		stroke(0,0,255);
